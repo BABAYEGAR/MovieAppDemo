@@ -20,8 +20,8 @@ A video was requested to visualize this demo. I have been unable to present one 
 
 Usage:
 
-Contribution:No required contribution as this is a basic demo web application
+Contribution:No required contribution as this is a basic demo web application.
 
-Licence: No available licence
+Licence: No available licence.
 
-Author: Haruna Salim
+Author: Haruna Salim.
