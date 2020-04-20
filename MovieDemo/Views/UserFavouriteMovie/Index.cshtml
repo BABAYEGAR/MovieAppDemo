@@ -1,9 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Razor.TagHelpers
 @using MovieDemo.Models.Entities
 @using Newtonsoft.Json
-@using ReflectionIT.Mvc.Paging
-@model ReflectionIT.Mvc.Paging.PagingList<Movie>
+@model ReflectionIT.Mvc.Paging.PagingList<MovieDemo.Models.Entities.Movie>
 @addTagHelper *,ReflectionIT.Mvc.Paging
 @{
     ViewData["Title"] = "Home Page";
@@ -20,78 +18,103 @@
     </nav>
 </div> <!-- end .text-right -->
 <div class="row">
-    @foreach (var item in Model)
+    @if (Model.Count > 0)
     {
-        var time = TimeSpan.FromMinutes(item.runtime);
-        var fromTimeString = time.ToString("hh':'mm");
-        <div class="col-md-4 col-sm-6" style="min-height: 300px !important">
-            <div class="property-card">
-                <div class="property-image" style="background: url('@item.posterPath') center center/cover no-repeat;">
-                    @if (user.AppUserId > 0)
-                    {
-                        if (user.UserFavouriteMovies.SingleOrDefault(n => n.AppUserId == user.AppUserId && n.MovieId == item.id) == null)
+        @foreach (var item in Model)
+        {
+            var time = TimeSpan.FromMinutes(item.runtime);
+            var fromTimeString = time.ToString("hh':'mm");
+            <div class="col-md-4 col-sm-6" style="min-height: 300px !important">
+                <div class="property-card">
+                    <div class="property-image" style="background: url('@item.posterPath') center center/cover no-repeat;">
+                        @if (user.AppUserId > 0)
                         {
-                            <span class="property-label label label-warning">
-                                <a href="@Url.Action("AddMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
-                                    Add to Favorite
-                                </a>
+                            if (user.UserFavouriteMovies.SingleOrDefault(n => n.AppUserId == user.AppUserId && n.MovieId == item.id) == null)
+                            {
+                                <span class="property-label label label-warning">
+                                    <a style="color: white" href="@Url.Action("AddMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
+                                        Add to Favorite
+                                    </a>
 
-                            </span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="property-label label label-warning">
+                                    <a style="color: white" href="@Url.Action("RemoveMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
+                                        Remove Favorite
+                                    </a>
+
+                                </span>
+                            }
                         }
-                        else
-                        {
-                            <span class="property-label label label-warning">
-                                <a href="@Url.Action("RemoveMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
-                                    Remove Favorite
-                                </a>
 
-                            </span>
-                        }
-                    }
-
-                </div>
-
-                <div class="property-content">
-                    <div class="listingInfo">
-                        <div class="">
-                            <h5 class="text-success m-t-0">$@($"{item.budget:n0}")</h5>
-                        </div>
-                        <div class="">
-                            <h3 class="text-overflow">
-                                <a href="#" class="text-dark">@item.title</a>
-                            </h3>
-                            <p class="text-muted text-overflow"><i class="mdi mdi-map-marker-radius m-r-5"></i>@item.overview?.Substring(0, item.overview.Length)...</p>
-
-                            <div class="row text-center">
-                                <div class="col-xs-4">
-                                    <h6>@(new DateTime(item.releaseDate[0], item.releaseDate[1], item.releaseDate[2]).ToString("D"))</h6>
-                                    <p class="text-overflow" title="Square Feet">Date Released</p>
-                                </div>
-                                <div class="col-xs-4">
-                                    <h5>@fromTimeString</h5>
-                                    <p class="text-overflow" title="Bedrooms">Runtime</p>
-                                </div>
-                                <div class="col-xs-4">
-                                    <h5>@item.voteAverage</h5>
-                                    <p class="text-overflow" title="Parking Space">Vote Average</p>
-                                </div>
-                            </div>
-
-                            <div class="m-t-20">
-                                <a href="@item.homepage" target="_blank" class="btn btn-primary btn-block waves-effect waves-light">View Movie</a>
-                            </div>
-                        </div>
                     </div>
-                    <!-- end. Card actions -->
+
+                    <div class="property-content">
+                        <div class="listingInfo">
+                            <div class="">
+                                <h5 class="text-success m-t-0">$@($"{item.budget:n0}")</h5>
+                            </div>
+                            <div class="">
+                                <h3 class="text-overflow">
+                                    <a href="#" class="text-dark">@item.title</a>
+                                </h3>
+                                <p class="text-muted text-overflow"><i class="mdi mdi-calendar m-r-5"></i>@item.overview?.Substring(0, item.overview.Length)...</p>
+
+                                <div class="row text-center">
+                                    <div class="col-xs-4">
+                                        <h6>@(new DateTime(item.releaseDate[0], item.releaseDate[1], item.releaseDate[2]).ToString("D"))</h6>
+                                        <p class="text-overflow" title="Square Feet">Date Released</p>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h5>@fromTimeString</h5>
+                                        <p class="text-overflow" title="Bedrooms">Runtime</p>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h5>@item.voteAverage</h5>
+                                        <p class="text-overflow" title="Parking Space">Vote Average</p>
+                                    </div>
+                                </div>
+
+                                <div class="m-t-20">
+                                    <a href="@item.homepage" target="_blank" class="btn btn-primary btn-block waves-effect waves-light">View Movie</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end. Card actions -->
+                    </div>
+                    <!-- /inner row -->
                 </div>
-                <!-- /inner row -->
+                <br/>
+                <br/>
+                <br/>
+                <!-- End property item -->
             </div>
-            <br />
-            <br />
-            <br />
-            <!-- End property item -->
-        </div>
-        <!-- end col -->
+            <!-- end col -->
+        }
+    }
+    else
+    {
+        <!-- HOME -->
+        <section>
+            <div class="container-alt">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+
+                        <div class="wrapper-page">
+                            <img src="~/DashboardTheme/assets/images/animat-diamond-color.gif" alt="" height="120">
+                            <h2 class="text-uppercase text-danger">List Empty!</h2>
+                            <p class="text-muted">Your favorite movies list is empty. Return home and add movies of your choice to your list.</p>
+
+                            <a class="btn btn-success waves-effect waves-light m-t-20" href="@Url.Action("Index", "Home")"> Return Home</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END HOME -->
     }
 </div>
 

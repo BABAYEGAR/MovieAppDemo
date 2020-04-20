@@ -34,7 +34,8 @@ namespace MovieDemo.Controllers
         /// <returns></returns>
         public IActionResult ViewMovie(long movieId)
         {
-            var movie = new APIFactory().GetAllMovies(new AppKey().FetchAllMoviesUrl).Result.ToList().SingleOrDefault(n=>n.id == movieId);
+            var movie = new APIFactory().GetAllMovies(new AppKey().FetchAllMoviesUrl).Result.ToList()
+                .SingleOrDefault(n=>n.id == movieId);
             return View(movie);
         }
 
@@ -46,7 +47,7 @@ namespace MovieDemo.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

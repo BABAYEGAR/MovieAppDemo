@@ -1,5 +1,4 @@
-﻿@using MovieDemo.Models.Enum
-@model MovieDemo.Models.Entities.AppUser
+﻿@model MovieDemo.Models.Entities.AppUser
 @{
     ViewBag.Title = "Sign Up";
     Layout = "_LayoutAccount";
@@ -18,49 +17,49 @@
     </div>
 
     <div class="account-content">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", role = "form" }))
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "form-horizontal", enctype = "multipart/form-data", role = "form"}))
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
             <div class="form-group">
                 <div class="col-xs-12">
-                    @Html.EditorFor(model => model.Username, null, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
-                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Username, null, new {htmlAttributes = new {@class = "form-control", placeholder = "Username"}})
+                    @Html.ValidationMessageFor(model => model.Username, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
-                    @Html.EditorFor(model => model.Firstname, null, new { htmlAttributes = new { @class = "form-control", placeholder = "Firstname" } })
-                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Firstname, null, new {htmlAttributes = new {@class = "form-control", placeholder = "Firstname"}})
+                    @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
-                    @Html.EditorFor(model => model.Surname, null, new { htmlAttributes = new { @class = "form-control", placeholder = "Surname" } })
-                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Surname, null, new {htmlAttributes = new {@class = "form-control", placeholder = "Surname"}})
+                    @Html.ValidationMessageFor(model => model.Surname, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
-                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+                    @Html.PasswordFor(model => model.Password, new {@class = "form-control", placeholder = "Password"})
                     <span class="view-pass">
                         <i class="lotus-icon-view"></i>
                     </span>
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
-                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Password" })
+                    @Html.PasswordFor(model => model.ConfirmPassword, new {@class = "form-control", placeholder = " Confirm Password"})
                     <span class="view-pass">
                         <i class="lotus-icon-view"></i>
                     </span>
-                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <button type="submit" style="background: #f48f00; color: white; font-size: 16px" class="btn btn-block btn-lg">Sign In<i class="fa fa-sign-in"></i></button>
+                    <button type="submit" style="background: #f48f00; color: white; font-size: 16px" class="btn btn-primary btn-block btn-lg">Sign In<i class="fa fa-sign-in"></i></button>
                 </div>
             </div>
         }

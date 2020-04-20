@@ -14,7 +14,7 @@ namespace MovieDemo.Models.Entities
         public long runtime { get; set; }
         public List<Genre> genres { get; set; }
         public long id { get; set; }
-        public List<Video> videos { get; set; }
+        public List<Video> vidoes { get; set; }
         public decimal budget { get; set; }
         public string posterPath { get; set; }
         public string status { get; set; }

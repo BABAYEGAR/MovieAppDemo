@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MovieDemo.Models.DatabaseConnection;
 using MovieDemo.Models.Encryption;
 using MovieDemo.Models.Entities;
 using MovieDemo.Models.Enum;
 using MovieDemo.Models.Services;
+using Newtonsoft.Json;
 using ReflectionIT.Mvc.Paging;
 
 namespace MovieDemo.Controllers
@@ -67,6 +69,12 @@ namespace MovieDemo.Controllers
                 _databaseConnection.UserFavouriteMovies.Add(favoriteMovie);
                 _databaseConnection.SaveChanges();
 
+                //fetch user with all favorite movies
+                var user = _databaseConnection.AppUsers.Include(n => n.UserFavouriteMovies).SingleOrDefault(n => n.AppUserId == userId);
+
+                //save user object and user id in session
+                HttpContext.Session.SetString("MovieDemoLoggedInUser", JsonConvert.SerializeObject(user));
+
                 TempData["display"] = "You have successfully added the movie to your favorite list!";
                 TempData["notificationtype"] = NotificationType.Success.ToString();
                 return RedirectToAction("Index");
@@ -94,6 +102,14 @@ namespace MovieDemo.Controllers
                 //save transaction
                 _databaseConnection.UserFavouriteMovies.Remove(favoriteMovie);
                 _databaseConnection.SaveChanges();
+
+
+                //fetch user with all favorite movies
+                var user = _databaseConnection.AppUsers.Include(n => n.UserFavouriteMovies).SingleOrDefault(n => n.AppUserId == userId);
+
+                //save user object and user id in session
+                HttpContext.Session.SetString("MovieDemoLoggedInUser", JsonConvert.SerializeObject(user));
+
                 TempData["display"] = "You have successfully removed the movie from your favorite list!";
                 TempData["notificationtype"] = NotificationType.Success.ToString();
                 return RedirectToAction("Index");

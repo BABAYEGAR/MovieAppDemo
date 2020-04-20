@@ -1,9 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Razor.TagHelpers
 @using MovieDemo.Models.Entities
 @using Newtonsoft.Json
-@using ReflectionIT.Mvc.Paging
-@model ReflectionIT.Mvc.Paging.PagingList<Movie>
+@model ReflectionIT.Mvc.Paging.PagingList<MovieDemo.Models.Entities.Movie>
 @addTagHelper *,ReflectionIT.Mvc.Paging
 @{
     ViewData["Title"] = "Home Page";
@@ -32,7 +30,7 @@
                         if (user.UserFavouriteMovies.SingleOrDefault(n => n.AppUserId == user.AppUserId && n.MovieId == item.id) == null)
                         {
                             <span class="property-label label label-warning">
-                                <a href="@Url.Action("AddMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
+                                <a style="color: white" href="@Url.Action("AddMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
                                     Add to Favorite
                                 </a>
 
@@ -41,7 +39,7 @@
                         else
                         {
                             <span class="property-label label label-warning">
-                                <a href="@Url.Action("RemoveMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
+                                <a style="color: white" href="@Url.Action("RemoveMovieToFavoriteList", "UserFavouriteMovie", new {movieId = item.id})">
                                     Remove Favorite
                                 </a>
 
@@ -60,11 +58,14 @@
                             <h3 class="text-overflow">
                                 <a href="#" class="text-dark">@item.title</a>
                             </h3>
-                            <p class="text-muted text-overflow"><i class="mdi mdi-map-marker-radius m-r-5"></i>@item.overview?.Substring(0, item.overview.Length)...</p>
+                            <p class="text-muted text-overflow"><i class="mdi mdi-calendar m-r-5"></i>@item.overview?.Substring(0, item.overview.Length)...</p>
 
                             <div class="row text-center">
                                 <div class="col-xs-4">
-                                    <h6>@(new DateTime(item.releaseDate[0], item.releaseDate[1], item.releaseDate[2]).ToString("D"))</h6>
+                                    <h6>
+                                        @(new DateTime(item.releaseDate[0], item.releaseDate[1],
+                                            item.releaseDate[2]).ToString("D"))
+                                    </h6>
                                     <p class="text-overflow" title="Square Feet">Date Released</p>
                                 </div>
                                 <div class="col-xs-4">
@@ -78,7 +79,8 @@
                             </div>
 
                             <div class="m-t-20">
-                                <a href="@item.homepage" target="_blank" class="btn btn-primary btn-block waves-effect waves-light">View Movie</a>
+
+                                <a href="@Url.Action("ViewMovie", new {movieId = item.id})" target="_blank" class="btn btn-primary btn-block waves-effect waves-light">View Movie</a>
                             </div>
                         </div>
                     </div>
@@ -86,9 +88,9 @@
                 </div>
                 <!-- /inner row -->
             </div>
-            <br />
-            <br />
-            <br />
+            <br/>
+            <br/>
+            <br/>
             <!-- End property item -->
         </div>
         <!-- end col -->

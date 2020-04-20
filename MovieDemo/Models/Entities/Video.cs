@@ -9,7 +9,7 @@ namespace MovieDemo.Models.Entities
     {
         public string site { get; set; }
         public string name { get; set; }
-        public long id { get; set; }
+        public string id { get; set; }
         public string type { get; set; }
         public string key { get; set; }
     }

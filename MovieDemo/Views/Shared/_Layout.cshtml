@@ -33,6 +33,13 @@
     <![endif]-->
 
     <script src="~/DashboardTheme/assets/js/modernizr.min.js"></script>
+    <style>
+        .viewImage {
+            height: 600px !important;
+            object-fit: cover !important;
+            width: 900px !important;
+        }
+    </style>
 
 </head>
 
@@ -83,39 +90,9 @@
                 </div>
                 <!-- end row -->
                 <!-- end row -->
-            
-                    @if (TempData["display"] != null)
-                    {
-                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
-                        {
-                            <script>
-                                Swal.fire({
-                                    text: '@TempData["display"]',
-                                    type: 'success'
-                                })
-                            </script>
-                        }
-                        if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
-                        {
-                            <script>
-                                Swal.fire({
-                                    text: '@TempData["display"]',
-                                    type: 'error'
-                                })
-                            </script>
-                        }
-                        if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
-                        {
-                            <script>
-                                Swal.fire({
-                                    text: '@TempData["display"]',
-                                    type: 'info'
-                                })
-                            </script>
-                        }
-                    }
-                    @RenderBody()
-              
+
+                @RenderBody()
+
                 <!-- end row -->
 
             </div> <!-- container -->
@@ -151,6 +128,8 @@
 <script src="~/DashboardTheme/assets/js/jquery.slimscroll.js"></script>
 <script src="~/DashboardTheme/assets/js/jquery.scrollTo.min.js"></script>
 <script src="~/plugins/switchery/switchery.min.js"></script>
+<!-- Bx slider js -->
+<script src="~/plugins/bx-slider/jquery.bxslider.min.js"></script>
 
 <!-- Bootstrap select js -->
 <script src="~/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
@@ -159,5 +138,44 @@
 <script src="~/DashboardTheme/assets/js/jquery.core.js"></script>
 <script src="~/DashboardTheme/assets/js/jquery.app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script>
+    $(document).ready(function() {
+        $('.property-slider').bxSlider({
+            pagerCustom: '#bx-pager'
+        });
+    });
+</script>
+@if (TempData["display"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+    {
+        <script>
+            Swal.fire({
+                text: '@TempData["display"]',
+                type: 'success'
+            })
+        </script>
+    }
+    if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
+    {
+        <script>
+            Swal.fire({
+                text: '@TempData["display"]',
+                type: 'error'
+            })
+        </script>
+    }
+    if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+    {
+        <script>
+            Swal.fire({
+                text: '@TempData["display"]',
+                type: 'info'
+            })
+        </script>
+    }
+}
 </body>
-</html>
+</html >
