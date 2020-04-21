@@ -64,36 +64,7 @@
             <div class="col-sm-12">
 
                 <div class="wrapper-page">
-                    @if (TempData["display"] != null)
-                    {
-                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
-                        {
-                            <script>
-                                Swal.fire({
-                                    text: '@TempData["display"]',
-                                    type: 'success'
-                                })
-                            </script>
-                        }
-                        if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
-                        {
-                            <script>
-                                Swal.fire({
-                                    text: '@TempData["display"]',
-                                    type: 'error'
-                                })
-                            </script>
-                        }
-                        if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
-                        {
-                            <script>
-                                Swal.fire({
-                                    text: '@TempData["display"]',
-                                    type: 'info'
-                                })
-                            </script>
-                        }
-                    }
+
                     @RenderBody()
                 </div>
                 <!-- end wrapper -->
@@ -124,7 +95,36 @@
 <script src="~/DashboardTheme/assets/js/jquery.core.js"></script>
 <script src="~/DashboardTheme/assets/js/jquery.app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
+@if (TempData["display"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+    {
+        <script>
+            Swal.fire({
+                text: '@TempData["display"]',
+                type: 'success'
+            })
+        </script>
+    }
+    if (TempData["notificationtype"].Equals(NotificationType.Error.ToString()))
+    {
+        <script>
+            Swal.fire({
+                text: '@TempData["display"]',
+                type: 'error'
+            })
+        </script>
+    }
+    if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+    {
+        <script>
+            Swal.fire({
+                text: '@TempData["display"]',
+                type: 'info'
+            })
+        </script>
+    }
+}
 @RenderSection("Script", false)
 
 </body>

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using MovieDemo.Models;
 using MovieDemo.Models.DatabaseConnection;
 using MovieDemo.Models.Services;
 using ReflectionIT.Mvc.Paging;
