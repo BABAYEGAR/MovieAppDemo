@@ -42,7 +42,7 @@ namespace MovieDemo
         [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-            //add database connection for application on startup
+            //add database connection type for application on startup
             services.AddDbContext<MovieDemoDataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MovieDemo")));
 
@@ -73,6 +73,7 @@ namespace MovieDemo
 
 
             });
+            //add paging service
             services.AddPaging();
         }
 
@@ -93,7 +94,7 @@ namespace MovieDemo
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
+            //declear expiration time for js/css files on browser
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = context =>

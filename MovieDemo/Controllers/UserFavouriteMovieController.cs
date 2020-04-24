@@ -27,14 +27,20 @@ namespace MovieDemo.Controllers
         [SessionExpireFilter]
         public IActionResult Index(int page = 1)
         {
+            //get user ID from session
             var userId = Convert.ToInt64(HttpContext.Session.GetString("MovieDemoLoggedInUserId"));
+
+            //get favorite data from DB
             var userFavMovies = _databaseConnection.UserFavouriteMovies.Where(n => n.AppUserId == userId);
+
+            //get all movies
             var movies = new APIFactory().GetAllMovies(new AppKey().FetchAllMoviesUrl).Result.ToList();
-            var userMovies = (from a in movies
+            var userMovies = from a in movies
                 join b in userFavMovies on a.id equals b.MovieId
                 where b.AppUserId == userId
-                select a);
-                    
+                select a;
+
+            //paginate movies        
             var model = PagingList.Create(userMovies, 10, page);
             return View(model);
         }
@@ -90,6 +96,7 @@ namespace MovieDemo.Controllers
         [SessionExpireFilter]
         public IActionResult RemoveMovieToFavoriteList(long movieId)
         {
+            //get user ID from session
             var userId = Convert.ToInt64(HttpContext.Session.GetString("MovieDemoLoggedInUserId"));
 
             var favoriteMovie =
