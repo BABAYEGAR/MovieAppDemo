@@ -4,7 +4,7 @@
 @model ReflectionIT.Mvc.Paging.PagingList<MovieDemo.Models.Entities.Movie>
 @addTagHelper *,ReflectionIT.Mvc.Paging
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "My Favorite Movies";
     var user = new AppUser();
     if (Context.Session.GetString("MovieDemoLoggedInUser") != null)
     {
